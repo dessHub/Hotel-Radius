@@ -53,8 +53,8 @@ if(isset($_POST['btn-signup']))
    $mail->SMTPAuth = true;
    $mail->Host = 'smtp.gmail.com';
    $mail->Port = 587;
-   $mail->Username = 'beja.emmanuel@gmail.com';
-   $mail->Password = '#1Emmcodes';
+   $mail->Username = 'yourgmailemail@gmail.com';
+   $mail->Password = 'yourgmailpassword';
    $mail->setFrom('DoNotReply@gmail.com', 'Hotel Radius');
    $mail->addAddress($email);
    $mail->Subject = 'Hotel Radius! Confirm Registration';

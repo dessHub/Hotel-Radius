@@ -19,10 +19,8 @@ if(isset($_GET['id']) && isset($_GET['code']))
    $row = $stmt->fetch(PDO::FETCH_ASSOC);
    if($row['loginType']=="admin"){
      $user->redirect('adminhome.php');
-   }lse if($row['loginType']=="company"){
+   }else if($row['loginType']=="company"){
      $user->redirect('companyhome.php');
-   }else {
-     $user->redirect('home.php');
    }
  }
 

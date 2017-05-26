@@ -21,8 +21,6 @@ if(isset($_GET['id']) && isset($_GET['code']))
      $user->redirect('adminhome.php');
    }else if($row['loginType']=="company"){
      $user->redirect('companyhome.php');
-   }else {
-     $user->redirect('home.php');
    }
  }
 

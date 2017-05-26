@@ -7,11 +7,21 @@ $conn = mysqli_connect("localhost", "root", "12345678", "hotel");
 
 
 //get the viewcompany.php page while passing a session with the company id
-if(isset($_GET['book'])){
+if(isset($_POST['btn-book'])){
   $booked = 'Yes';
-  $SQL = $conn->prepare("UPDATE tbl_rooms SET booked=? WHERE id=?");
-  $SQL->bind_param("si",$booked, $_GET['book']);
+  $phoneNumber = $_POST['phoneNumber'];
+  $customerName = $_POST['customerName'];
+  $roomId = $_POST['roomId'];
+
+  $SQL = $conn->prepare("UPDATE tbl_rooms SET booked=?, phoneNumber=?, customerName=?  WHERE id=?");
+  $SQL->bind_param("sssi",$booked, $phoneNumber, $customerName, $roomId);
   $SQL->execute();
+
+  $bookmssg = "<div class='alert alert-success'>
+  <button class='close' data-dismiss='alert'>&times;</button>
+  <strong>Awesome !</strong> Your have just booked for a room!
+ </div>";
+
 }
 
 if(isset($_SESSION['companySession'])){
@@ -147,6 +157,11 @@ if(isset($_SESSION['companySession'])){
                                                     <div class="col-md-4">
                                                       <center><h4>Rooms</h4></center>
                                                       <hr>
+                                                      <?php
+                                                  if(isset($bookmssg)){
+                                                    echo $bookmssg;
+                                                  }
+                                                   ?>
                                                       <ol>
                                                       <?php
                                                       $responseRooms = $conn->query("SELECT * FROM tbl_rooms WHERE companyName='$name'");
@@ -176,8 +191,42 @@ if(isset($_SESSION['companySession'])){
                                                              <button class='close' data-dismiss='alert'>&times;</button>
                                                              <strong>Room Available. Hurry!</strong>
                                                             </div>
-                                                             <a href="?book=<?php echo $rowRooms['id']; ?>"><i class="fa fa-shopping-cart">Book Room</i></a>
-                                                             <?php
+                                                            <button class="btn btn-outline btn-primary btn-block" data-toggle="modal" data-target="#pay"><i class="fa fa-shopping-cart">Book Room</i></button>
+
+
+                                                            <div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                       <div class="modal-dialog" role="document">
+                                                                           <div class="modal-content">
+                                                                               <div class="modal-header">
+                                                                                 <h4>Mpesa</h4>
+                                                                               </div>
+                                                                               <div class="modal-body">
+                                                                                  <form method="post">
+                                                                                   <div class="form-group">
+                                                                                       <label for="customerName">Your Name</label>
+                                                                                       <input type="text" name="customerName" placeholder="" class="form-control"  autofocus required/>
+                                                                                   </div>
+
+                                                                                     <div class="form-group">
+                                                                                         <label for="phoneNumber">Phone Number</label>
+                                                                                         <input type="text" name="phoneNumber" placeholder="Your Phone Number" class="form-control"/>
+                                                                                     </div>
+
+                                                                                     <input type="hidden" name="roomId" placeholder="" value="<?php echo $rowRooms['id']; ?>"/>
+
+                                                                                     <button class="btn btn-lg btn-success btn-block" type="submit" name="btn-book">Book</button></br>
+                                                                                   </form>
+                                                                               </div>
+                                                                               <div class="modal-footer">
+                                                                                 <div class="form-group" >
+                                                                                   <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Cancel</button>
+                                                                                 </div>
+                                                                                 </form>
+                                                                               </div>
+                                                                          </div>
+                                                                      </div>
+                                                                      </div>
+                                                         <?php
                                                            }?>
                                                       </ul>
                                                       </li>
@@ -191,6 +240,8 @@ if(isset($_SESSION['companySession'])){
                                      </div>
                                  </div>
     </section>
+
+
     <aside class="bg-dark">
         <div class="container text-center">
             <div class="call-to-action">

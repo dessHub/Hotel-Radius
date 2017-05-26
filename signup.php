@@ -53,8 +53,8 @@ if(isset($_POST['btn-signup']))
    $mail->SMTPAuth = true;
    $mail->Host = 'smtp.gmail.com';
    $mail->Port = 587;
-   $mail->Username = 'youremail@gmail.com';
-   $mail->Password = 'yourpassword';
+   $mail->Username = 'beja.emmanuel@gmail.com';
+   $mail->Password = '#1Emmcodes';
    $mail->setFrom('DoNotReply@gmail.com', 'Hotel Radius');
    $mail->addAddress($email);
    $mail->Subject = 'Hotel Radius! Confirm Registration';
@@ -174,7 +174,6 @@ if(isset($_POST['btn-signup']))
                                 </div>
                                 <div class="form-group">
                                  <select name="txtrole" class="">
-                                   <option value="user">User</option>
                                  	<option value="company">Company.</option>
                                  </select>
                                  </div>

@@ -6,7 +6,7 @@ $user_login = new USER();
 $conn = mysqli_connect("localhost", "root", "12345678", "hotel");
 
 
-//get the viewcompany.php page while passing a session with the company id
+//booking details sent to db
 if(isset($_POST['btn-book'])){
   $booked = 'Yes';
   $phoneNumber = $_POST['phoneNumber'];

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 26, 2017 at 06:03 AM
+-- Generation Time: May 30, 2017 at 05:42 AM
 -- Server version: 5.7.15
 -- PHP Version: 7.0.11
 
@@ -19,18 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `hotel`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_applicants`
---
-
-CREATE TABLE `tbl_applicants` (
-  `id` int(11) NOT NULL,
-  `userName` varchar(100) NOT NULL,
-  `companyName` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -53,18 +41,6 @@ INSERT INTO `tbl_base` (`id`, `companyName`, `companyBranch`, `category`) VALUES
 (2, 'Sun n Sands', 'Mtwapa', 'beach hotel'),
 (3, 'Serena', 'Nairobi', '5Star hotel'),
 (4, 'Serena', 'Mombasa', '5Star hotel');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_image`
---
-
-CREATE TABLE `tbl_image` (
-  `Id` int(11) NOT NULL,
-  `image` varchar(100) NOT NULL,
-  `userName` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -112,7 +88,7 @@ CREATE TABLE `tbl_rooms` (
 --
 
 INSERT INTO `tbl_rooms` (`id`, `companyName`, `roomType`, `capacity`, `price`, `booked`, `phoneNumber`, `customerName`) VALUES
-(1, 'Serena', '2bedroom', '4', '10000', 'No', 712345678, 'Mwinyi'),
+(1, 'Serena', '2bedroom', '4', '10000', 'Yes', 712345678, 'sdfghj'),
 (2, 'Serena', 'asd', '5', '20000', 'No', 7345678, 'Emmanuel');
 
 -- --------------------------------------------------------
@@ -128,40 +104,26 @@ CREATE TABLE `tbl_users` (
   `userPass` varchar(100) NOT NULL,
   `userPhone` varchar(20) NOT NULL,
   `about` varchar(1000) DEFAULT NULL,
-  `website` varchar(200) DEFAULT NULL,
-  `means` varchar(100) DEFAULT NULL,
-  `category` varchar(100) DEFAULT NULL,
-  `loginType` varchar(100) DEFAULT 'user',
-  `subscription` varchar(100) NOT NULL DEFAULT 'N',
-  `userStatus` enum('Y','N') NOT NULL DEFAULT 'N',
-  `tokenCode` varchar(100) NOT NULL
+  `website` varchar(100) DEFAULT NULL,
+  `loginType` varchar(100) DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`userID`, `userName`, `userEmail`, `userPass`, `userPhone`, `about`, `website`, `means`, `category`, `loginType`, `subscription`, `userStatus`, `tokenCode`) VALUES
-(1, 'admin', 'admin95@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '712991415', NULL, NULL, NULL, NULL, 'admin', 'N', 'Y', 'fe79c8ee7fdc36c308a4891b8aa20eb1'),
-(3, 'Grand Regency', 'Grandregency@yahoo.com', '81dc9bdb52d04dc20036dbd8313ed055', '712991415', NULL, NULL, NULL, NULL, 'company', 'N', 'Y', '7cae4474bf2b66561815e9c59c0e2b71'),
-(5, 'Hilton', 'Hilton@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '0712991415', NULL, NULL, NULL, NULL, 'company', 'N', 'Y', '8afdc42751ca264cce7fe7f0ead79464'),
-(10, 'Sarova Hotels', 'beja.emmanuel@gmail.com', '202cb962ac59075b964b07152d234b70', '0712121212', NULL, NULL, NULL, NULL, 'company', 'N', 'Y', '2e7211a6192cd3fa1756f52d3d2f4820'),
-(6, 'Serena', 'serena@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '0712991415', 'We pride ourself with the best chefs in the world and a diverse work force. Making most out of our diversity to make our customers happy and feeling at home.', '', NULL, NULL, 'company', 'N', 'Y', '705b67157e085b74db3fe3f7fba7d9db'),
-(2, 'Shimba Hills Hotel', 'shimbahillshotel@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '0712991415', NULL, NULL, NULL, NULL, 'company', 'N', 'Y', '6f078b11506105489c988422d50fb79c'),
-(4, 'Sun n Sands', 'emmcodes@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '+254712991415', 'hn', 'www.sun', NULL, NULL, 'company', 'N', 'Y', '57722b2b6fc1118b760f1e075209e92d');
+INSERT INTO `tbl_users` (`userID`, `userName`, `userEmail`, `userPass`, `userPhone`, `about`, `website`, `loginType`) VALUES
+(1, 'admin', 'admin95@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '712991415', NULL, NULL, 'admin'),
+(3, 'Grand Regency', 'Grandregency@yahoo.com', '81dc9bdb52d04dc20036dbd8313ed055', '712991415', NULL, NULL, 'company'),
+(5, 'Hilton', 'Hilton@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '0712991415', NULL, NULL, 'company'),
+(10, 'Sarova Hotels', 'beja.emmanuel@gmail.com', '202cb962ac59075b964b07152d234b70', '0712121212', NULL, NULL, 'company'),
+(6, 'Serena', 'serena@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '0712991415', 'We pride ourself with the best chefs in the world and a diverse work force. Making most out of our diversity to make our customers happy and feeling at home.', NULL, 'company'),
+(2, 'Shimba Hills Hotel', 'shimbahillshotel@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '0712991415', NULL, NULL, 'company'),
+(4, 'Sun n Sands', 'emmcodes@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '+254712991415', 'hn', NULL, 'company');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `tbl_applicants`
---
-ALTER TABLE `tbl_applicants`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `userName` (`userName`),
-  ADD KEY `companyName` (`companyName`);
 
 --
 -- Indexes for table `tbl_base`
@@ -170,14 +132,6 @@ ALTER TABLE `tbl_base`
   ADD PRIMARY KEY (`id`),
   ADD KEY `companyName` (`companyName`),
   ADD KEY `id` (`id`);
-
---
--- Indexes for table `tbl_image`
---
-ALTER TABLE `tbl_image`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `Id` (`Id`),
-  ADD KEY `userName` (`userName`);
 
 --
 -- Indexes for table `tbl_prof`
@@ -209,20 +163,10 @@ ALTER TABLE `tbl_users`
 --
 
 --
--- AUTO_INCREMENT for table `tbl_applicants`
---
-ALTER TABLE `tbl_applicants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `tbl_base`
 --
 ALTER TABLE `tbl_base`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `tbl_image`
---
-ALTER TABLE `tbl_image`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbl_prof`
 --
@@ -237,29 +181,16 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `tbl_applicants`
---
-ALTER TABLE `tbl_applicants`
-  ADD CONSTRAINT `fkapplicantusername` FOREIGN KEY (`userName`) REFERENCES `tbl_users` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkcompnyusername` FOREIGN KEY (`companyName`) REFERENCES `tbl_users` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_base`
 --
 ALTER TABLE `tbl_base`
   ADD CONSTRAINT `fkuserbase` FOREIGN KEY (`companyName`) REFERENCES `tbl_users` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tbl_image`
---
-ALTER TABLE `tbl_image`
-  ADD CONSTRAINT `fkuserimage` FOREIGN KEY (`userName`) REFERENCES `tbl_users` (`userName`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_prof`

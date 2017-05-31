@@ -96,17 +96,6 @@ if(isset($_POST['btn-login']))
                         <form role="form" method="post">
                             <fieldset>
                               <?php
-                              if(isset($_GET['inactive']))
-                              {
-                               ?>
-                                <div class='alert alert-danger'>
-                                <button class='close' data-dismiss='alert'>&times;</button>
-                                <strong>Sorry!</strong> This Account is not Activated Go to your Inbox and Activate it.Click resend email if you didn't recieve an email.
-                               </div>
-                              <?php
-                              }
-                              ?>
-                              <?php
                                     if(isset($_GET['error']))
                               {
                                ?>
@@ -125,8 +114,6 @@ if(isset($_POST['btn-login']))
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <button class="btn btn-lg btn-success btn-block" type="submit" name="btn-login">Login</button></br>
-                                <a href="fpass.php">Forgot your Password ? </a></br>
-                                <a href="emailfail.php">Didn't recieve email?</a>
                             </fieldset>
                         </form>
                     </div>

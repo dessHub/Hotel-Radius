@@ -24,7 +24,6 @@ if(isset($_POST['btn-signup']))
  $upass = trim($_POST['txtpass']);
  $uphone = trim($_POST['txtphone']);
  $urole = trim($_POST['txtrole']);
- $code = md5(uniqid(rand()));
 
  $stmt = $reg_user->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id");
  $stmt->execute(array(":email_id"=>$email));
@@ -35,58 +34,21 @@ if(isset($_POST['btn-signup']))
   $msg = "
         <div class='alert alert-danger'>
     <button class='close' data-dismiss='alert'>&times;</button>
-     <strong>Sorry !</strong>  email already exists , Please Try another one
+     <strong>Sorry !</strong>  User with that email already exists , Please Try another one
      </div>
      ";
- }
- else
- {
-  if($reg_user->register($uname,$email,$upass,$uphone,$urole,$code))
-  {
-   $id = $reg_user->lasdID();
-   $key = base64_encode($id);
-   $id = $key;
-   require 'PHPMailer/PHPMailerAutoload.php';
-   $mail = new PHPMailer;
-   $mail->isSMTP();
-   $mail->SMTPSecure = 'tls';
-   $mail->SMTPAuth = true;
-   $mail->Host = 'smtp.gmail.com';
-   $mail->Port = 587;
-   $mail->Username = 'yourgmailemail@gmail.com';
-   $mail->Password = 'yourgmailpassword';
-   $mail->setFrom('DoNotReply@gmail.com', 'Hotel Radius');
-   $mail->addAddress($email);
-   $mail->Subject = 'Hotel Radius! Confirm Registration';
-   $mail->Body = " Hello $uname,
-   Welcome to Hotel Radius!
-   To complete your registration, please click on the link bellow
-   http://localhost:8080/HotelRadius/verify.php?id=$id&code=$code
-
-   Thanks,";
-   //send the message, check for errors
-   if (!$mail->send()) {
-     $msg = "
-       <div class='alert alert-danger'>
-        <button class='close' data-dismiss='alert'>&times;</button>
-        <strong>Error!</strong>  Couldnt send email to $email.
-                      Please try again.
-         </div>
+ } else {
+  if($reg_user->register($uname,$email,$upass,$uphone,$urole)){
+    $msg = "
+          <div class='alert alert-danger'>
+      <button class='close' data-dismiss='alert'>&times;</button>
+       <strong>Success !</strong>  You can now login.
+       </div>
        ";
-   } else {
-     $msg = "
-       <div class='alert alert-success'>
-        <button class='close' data-dismiss='alert'>&times;</button>
-        <strong>Success!</strong>  We've sent an email to $email.
-                      Please click on the confirmation link in the email to create your account.
-         </div>
-       ";
-   }
- }else
-  {
+ }else  {
    echo "sorry , Query could no execute...";
   }
- }
+}
 }
 ?>
 <!DOCTYPE html>
@@ -173,9 +135,7 @@ if(isset($_POST['btn-signup']))
                                     <input class="form-control" placeholder="Password" name="txtpass" type="password" value="" required>
                                 </div>
                                 <div class="form-group">
-                                 <select name="txtrole" class="">
-                                 	<option value="company">Company.</option>
-                                 </select>
+                                  <input name="txtrole" type="hidden" value="company" required>
                                  </div>
                                 <button class="btn btn-lg btn-success btn-block" type="submit" name="btn-signup">Signup</button></br>
                             </fieldset>

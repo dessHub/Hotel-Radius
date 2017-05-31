@@ -26,19 +26,18 @@ class USER
   return $stmt;
  }
 
- public function register($uname,$email,$upass,$uphone,$urole,$code)
+ public function register($uname,$email,$upass,$uphone,$urole)
  {
   try
   {
    $password = md5($upass);
-   $stmt = $this->conn->prepare("INSERT INTO tbl_users(userName,userEmail,userPass,userPhone,loginType,tokenCode)
-                                                VALUES(:user_name, :user_mail, :user_pass, :user_phone,:user_type, :active_code)");
+   $stmt = $this->conn->prepare("INSERT INTO tbl_users(userName,userEmail,userPass,userPhone,loginType)
+                                                VALUES(:user_name, :user_mail, :user_pass, :user_phone,:user_type)");
    $stmt->bindparam(":user_name",$uname);
    $stmt->bindparam(":user_mail",$email);
    $stmt->bindparam(":user_pass",$password);
    $stmt->bindparam(":user_phone",$uphone);
    $stmt->bindparam(":user_type",$urole);
-   $stmt->bindparam(":active_code",$code);
    $stmt->execute();
    return $stmt;
   }
@@ -59,8 +58,6 @@ class USER
 
    if($stmt->rowCount() == 1)
    {
-    if($userRow['userStatus']=="Y")
-    {
      if($userRow['userPass']==md5($upass))
      {
        if($userRow['loginType']=="admin"){
@@ -79,13 +76,6 @@ class USER
       echo "Wrong password";
       exit;
      }
-    }
-    else
-    {
-     header("Location: login.php?inactive");
-     echo "your account is not activated.Try resend email option";
-     exit;
-    }
    }
    else
    {
